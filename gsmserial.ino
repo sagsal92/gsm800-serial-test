@@ -5,8 +5,8 @@
  Receives from software serial, sends to hardware serial.
 
  The circuit:
- * RX is digital pin 10 (connect to TX of other device)
- * TX is digital pin 11 (connect to RX of other device)
+ * RX is digital pin 2 (connect to TX of other device)
+ * TX is digital pin 3 (connect to RX of other device)
 
  Note:
  Not all pins on the Mega and Mega 2560 support change interrupts,
@@ -27,22 +27,23 @@
  */
 #include <SoftwareSerial.h>
 
-SoftwareSerial mySerial(2, 3); // RX, TX
+SoftwareSerial gsmSerial(2, 3); // RX, TX
 
 void setup() {
   // Open serial communications and wait for port to open:
   Serial.begin(9600);
-  
+  Serial.println("hi, serial setup is completed...");
   // set the data rate for the SoftwareSerial port
-  mySerial.begin(9600);
+  gsmSerial.begin(9600);
+  Serial.println("hi, gsm serial setup is completed...");
 }
 
 void loop() { // run over and over
-  if (mySerial.available()) {
-    Serial.write(mySerial.read());
+  if (gsmSerial.available()) {
+    Serial.write(gsmSerial.read());
   }
   if (Serial.available()) {
-    mySerial.write(Serial.read());
+    gsmSerial.write(Serial.read());
   }
 }
 
